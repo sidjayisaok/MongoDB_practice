@@ -1,0 +1,20 @@
+{
+  "name": "survey",
+  "version": "0.0.0",
+  "description": "class survey",
+  "main": "myServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sid Jay",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "body-parser": "~1.15.2",
+    "express": "~4.14.0",
+    "mongojs": "~2.4.0",
+    "monk": "^3.1.2",
+    "morgan": "^1.7.0",
+    "serve-favicon": "^2.3.0"
+  }
+}

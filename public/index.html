@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>Class Survey</title>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div class="text-center container">
+      <div class="text-center container col-md-6">
+        <button id="computer" class="btn btn-lg btn-info">Sort by Computer</button>
+        <button id="phone" class="btn btn-lg btn-danger">Sort by Phone</button>
+        <button id="name" class="btn btn-lg btn-warning">Sort by Name</button>
+      </div>
+
+      <form id="update" class="text-center container col-md-6">
+        <input type="text" placeholder="name" id="name">
+        <input type="text" placeholder="Computer OS" id="computerOS">
+        <input type="text" placeholder="Phone OS" id="phoneOS">
+        <button type="submit" class="btn btn-lg btn-warning">update</button>
+        <button type="submit" class="change btn btn-lg btn-info">change</button>
+      </form>
+    </div>
+
+    <div class="jumbotron text-center container">
+      <table id="results" class="text-center">
+        <tr><th class="col-md-3 text-center container">Name</th><th class="col-md-3 text-center container">Computer Operating System</th><th class="col-md-3 text-center container">Phone Operating System</th><th class="col-md-3 text-center container">Delete</th></tr>
+      </table>
+    </div>
+
+    <script src="survey.js"></script>
+
+  </body>
+
+</HTML>
