@@ -69,12 +69,12 @@ app.post('/survey', function(req, res){
 });
 
 //lets try a delete request here
-app.del('/survey/:id', function(req, res) {
+app.delete('/survey/:id', function(req, res) {
   var updateDB = req.params.id;
   db.mysurvey.remove({
     _id: ObjectId(updateDB)
   }, function(err, info){
-    (err ? res.json(err) : res.json((info===1) ? {msg:'success'} : {msg:'error'})
+    (err ? res.json(err) : res.json((info===1) ? {msg:'success'} : {msg:'error'}))
   });
 });
 
