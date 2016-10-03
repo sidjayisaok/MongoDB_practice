@@ -20,7 +20,8 @@ function myData(info){
 
       tr.append($('<button>', {
           text: "X",
-          class: "delete btn btn-sm btn-danger"
+          class: "delete btn btn-sm btn-danger",
+          id: mysurvey._id
       }));
 
       $('#results').append(tr);
@@ -30,7 +31,6 @@ function myData(info){
 
 //invoke data
 myData('/survey');
-
 
 $(function(){
   //sort by Computer button
@@ -62,14 +62,13 @@ $(function(){
     }).done(function(data){
       myData('/survey');
     });
-    // return false;
 });
 
 //change new information on a webpage
   $('.change').on('submit', function(){
     $.ajax({
-      method: 'POST',
-      url: '/update',
+      method: 'PUT',
+      url: '/survey:id',
       datatype: 'json',
       data: {
         Name: $('#name').val().trim(),
@@ -97,9 +96,14 @@ $(function(){
     //   });
     // });
 
-    $(".delete.btn.btn-sm.btn-danger").on("click", function(){
-      console.log("working");
-    $(this).closest("tr").remove();
+$(document.body).on("click", "button", function(){
+    $.ajax({
+      method: 'DELETE',
+      url: '/survey/' + $(this).attr('id')
+    }).done(function(){
+      myData('/survey/:id');
+      $(this).closest("tr").remove();
+    });
  });
 
 

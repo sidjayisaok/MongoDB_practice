@@ -9,9 +9,6 @@ var Port = process.env.PORT || 8080;
 
 //mongodb stuff
 var mongojs = require('mongojs');
-var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-var ObjectId = require('mongodb').ObjectID;
 var databaseurl = "myclass";
 var collections = ["mysurvey"];
 var db = mongojs(databaseurl, collections);
@@ -28,12 +25,21 @@ app.use(bodyParser.urlencoded({
 
 //basic get request for home page
 app.get('/', function(req, res){
+  console.log(req.body);
   res.sendFile(__dirname + '/index.html');
 });
 
 //get all API for the survey
 app.get('/survey', function(req, res){
   db.mysurvey.find({}, function(err, info){
+   (err ? res.json(err) : res.json(info))
+  });
+});
+
+//get one result from the survey
+app.get('/survey/:id', function(req, res){
+  res.end(req.params.id);
+  db.mysurvey.findOne({_id: req.params.id}).toArray(function(err, info){
    (err ? res.json(err) : res.json(info))
   });
 });
@@ -70,32 +76,36 @@ app.post('/survey', function(req, res){
 
 //lets try a delete request here
 app.delete('/survey/:id', function(req, res) {
-  var updateDB = req.params.id;
-  db.mysurvey.remove({
-    _id: ObjectId(updateDB)
-  }, function(err, info){
-    (err ? res.json(err) : res.json((info===1) ? {msg:'success'} : {msg:'error'}))
-  });
-});
+  res.end(req.params.id);
+  db.mysurvey.remove({_id: req.params.id}, function (err, product) {
+       if (!err) {
+         console.log("removed");
+         res.send('');
+       }
+       else {
+         console.log(err);
+       }
+     });
+   });
 
 // lets try an update request here
 app.put('/survey', function(req, res){
-
-  var item = {
-    Name: req.body.Name,
-    ComputerOS: req.body.ComputerOS,
-    PhoneOS: req.body.PhoneOS
-  };
-  var myStuff = req.db;
-  var collection = db.get('mysurvey');
-  var updateDB = req.params.id;
-  db.mysurvey.updateOne({
-    _id: ObjectId(updateDB)
-  }, {
-    $set: item
-  }, function(err, info){
-    (err ? res.json(err) : res.json(info))
-  });
+  res.send('Put request at /survey');
+  // var item = {
+  //   Name: req.body.Name,
+  //   ComputerOS: req.body.ComputerOS,
+  //   PhoneOS: req.body.PhoneOS
+  // };
+  // var updateDB = req.params.id;
+  // db.mysurvey.findById(updateDB, {
+  //   $set: item
+  // },
+  // {
+  //   sort:{_id: -1},
+  //   upsert: true
+  // }, function(err, info){
+  //   (err ? res.json(err) : res.json(info))
+  // });
 });
 
 //fire up the server
